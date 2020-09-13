@@ -1,0 +1,123 @@
+﻿@model MasterDetailsApp.Models.Purchase
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <br />
+<div class="panel-group">
+    <div class="panel panel-success">
+        <div class="panel panel-heading">
+            <div class="panel panel-title">Purchase Header</div>
+            <div class="panel-body">
+
+                <div class="row">
+
+                    <div class="col-md-6">
+
+                        <div class="form-group row">
+                            @Html.LabelFor(m => m.CustomerId, "Custormer Name *", new { @class = "control-label col-md-4" })
+                            <div class="col-md-4">
+                                @Html.DropDownListFor(m => m.CustomerId, new SelectList(ViewBag.CustomerId, "Id", "Name"), "--Select--", new { @class = "form-control", required = "required" })
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            @Html.LabelFor(m => m.ContactNo, "Contact Number *", new { @class = "control-label col-md-4" })
+                            <div class="col-md-4">
+                                @Html.TextBoxFor(m => m.ContactNo, null, new { @class = "form-control", required = "required" })
+                            </div>
+                        </div>
+
+                    </div>                
+
+                </div>
+              
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="panel-group">
+    <div class="panel panel-success">
+        <div class="panel panel-heading">
+            <div class="panel panel-title">Purchase Details</div>
+            <div class="panel-body">
+
+                <div class="form-group row">
+                    @Html.Label("ItemName", "Item Name *", new { @class = "control-label col-md-4" })
+                    <div class="col-md-4">
+                        @Html.DropDownList("ItemName", new SelectList(ViewBag.Product, "ProductId", "Name"), "--Select--", new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group row">
+                    @Html.Label("ItemQty", "Item Qty *", new { @class = "control-label col-md-4" })
+                    <div class="col-md-4">
+                        @Html.TextBox("ItemQty", null, new { @class = "form-control", placeholder = "item Quantity" })
+                    </div>
+                </div>
+                <div class="form-group row">
+                    @Html.Label("ItemPrice", "Item Pirce *", new { @class = "control-label col-md-4" })
+                    <div class="col-md-4">
+                        @Html.TextBox("ItemPrice", null, new { @class = "form-control", placeholder = "Per Unit Price" })
+                    </div>
+                </div>
+                <div class="col-md-4 col-md-offset-4">
+                    <input type="button" value="Add Item" id="AddButton" class="btn btn-info" />
+                </div>
+            </div>
+
+           
+
+
+        </div>
+    </div>
+</div>
+
+<div class="panel-group">
+    <div class="panel panel-success">
+        <div class="panel panel-heading">
+            <div class="panel panel-title">Added Purchase Details Items</div>
+            <div class="panel-body">
+
+                <table class="table table-bordered table-hover table-striped table-responsive"  >
+
+                    <thead style="background-color:teal; color: white;font-weight:bold">
+                        <tr>
+                            <td>Sl</td>
+                            <td>Item Name</td>
+                            <td>Qty</td>
+                            <td>Price</td>
+                            <td>Total Price</td>
+                        </tr>
+                    </thead>
+                    
+                    <tbody id="PurchaseDetailsTable"></tbody>
+
+                </table>
+                @*@{ 
+
+                    var grandTotal = 0;
+                }
+
+                @foreach (var order in Model.PurchaseDetails)
+                {
+                    grandTotal = grandTotal + order.TotalAmount;
+                }*@
+            </div>
+            @*<p>Totoal Bill = @grandTotal</p>*@
+        </div>
+    </div>
+</div>
+    <div class="col-md-4 col-md-offset-4">
+        <input type="submit" value="Save" class="btn btn-success" />
+    </div>
+
+}
+
+@section scripts{
+    
+    <script src="~/Scripts/MasterDetails/Purchase/PurchaseCreate.js"></script>
+    
+    
+    
+    
+    }
